@@ -1,0 +1,27 @@
+{
+  "required": true,
+  "minVersion": "0.8.5",
+  "package": "com.bai.god.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "complete_god.refmap.json",
+  "mixins": [
+    "GodPlayerLivingEntityMixin",
+    "GodPlayerProtectionMixin",
+    "GodEntityProtectionMixin",
+    "GodAttackBoostMixin",
+    "GodDamageReductionMixin",
+    "GodPlayerPassiveMixin",
+    "GodHungerMixin",
+    "GodNegativeEffectMixin",
+    "GodMiningMixin",
+    "GodMiningContextMixin",
+    "GodDropBonusMixin",
+    "GodPermissionMixin"
+  ],
+  "client": [],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1,
+    "maxShiftBy": 5
+  }
+}

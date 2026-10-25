@@ -1,0 +1,14 @@
+{
+  "category.complete_god.config": "-1 Config",
+  "key.complete_god.config_open": "Open -1 Config",
+
+  "itemGroup.complete_god": "-1",
+
+  "complete_god.config.title": "-1 Config",
+  "complete_god.config.category.god": "God Config",
+  "complete_god.config.category.ui": "UI Config",
+  "complete_god.config.customize": "Customize UI",
+  "complete_god.config.done": "Done",
+  "complete_god.config.back": "<- Back",
+  "complete_god.config.applyTitle": "Apply Title"
+}

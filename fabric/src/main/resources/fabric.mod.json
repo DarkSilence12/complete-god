@@ -1,0 +1,34 @@
+{
+	"schemaVersion": 1,
+	"id": "complete_god",
+	"version": "${version}",
+	"name": "完整神",
+	"description": "完整神",
+	"authors": [
+		"-1"
+	],
+	"contact": {
+		"homepage": "https://github.com/sxkb/complete-god",
+		"sources": "https://github.com/sxkb/complete-god"
+	},
+	"license": "LGPL-2.1-only",
+	"icon": "assets/complete_god/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.bai.god.fabric.CompleteGodFabric"
+		],
+		"client": [
+			"com.bai.god.fabric.CompleteGodFabricClient"
+		]
+	},
+	"mixins": [
+		"complete_god.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.15.0",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	}
+}

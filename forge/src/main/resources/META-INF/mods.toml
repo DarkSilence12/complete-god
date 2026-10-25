@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="LGPL-2.1-only"
+issueTrackerURL="https://github.com/sxkb/complete-god/issues"
+
+[[mods]]
+modId="complete_god"
+version="${file.jarVersion}"
+displayName="完整神"
+logoFile="complete_god.png"
+authors="-1"
+description='''完整神'''
+
+[[dependencies.complete_god]]
+    modId="forge"
+    mandatory=true
+    versionRange="[47,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.complete_god]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.20.1,1.21)"
+    ordering="NONE"
+    side="BOTH"
