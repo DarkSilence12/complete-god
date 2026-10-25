@@ -23,7 +23,7 @@ public class GodUiConfig {
 
     private static File configFile() {
         if (configFile == null) {
-            configFile = GodEnv.configFile("god_ui_config.json");
+            configFile = GodEnv.configFile("wanzhengshen_ui_config.json");
         }
         return configFile;
     }

@@ -1,0 +1,36 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="LGPL-2.1-only"
+issueTrackerURL=""
+
+# 完整神（wanzhengshen）—— Fabric 版移植到 Forge 1.20.1
+# 客户端与服务端双端模组（BOTH）：客户端按 = 键打开配置界面；服务端执行神级状态与 /god 命令。
+# modId 使用 wanzhengshen 与「言出法随」（god）隔离可共存；/god 命令与言出法随的 /god shen 共存于同一命令树。
+
+[[mods]]
+modId="wanzhengshen"
+version="${file.jarVersion}"
+displayName="完整神"
+logoFile="wanzhengshen.png"
+credits="Port to Forge from complete-god (Fabric) by -1"
+authors="-1"
+description='''完整神 —— 成神配置 + /god on|off + 极简防护（全伤害免疫 / 防 setHealth / 防 discard / 拦截死亡）。
+
+【功能】
+· /god on 激活神级状态，/god off 解除（神级玩家：全伤害免疫、防 setHealth、防 discard、拦截死亡）
+· 12 项成神开关：秒挖方块、进服自动成神、允许飞行、无敌、防饥饿、防负面效果、减伤、攻击加成、自动回血、挖掘加速、幸运掉落、默认4级权限
+· 客户端按 = 键打开「-1 配置」界面，可调整成神开关，并支持界面主题（粉色/暗色/青色/金色）与风格（默认/Windows/macOS/Linux）自定义'''
+
+[[dependencies.wanzhengshen]]
+    modId="forge"
+    mandatory=true
+    versionRange="[47,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.wanzhengshen]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.20.1,1.21)"
+    ordering="NONE"
+    side="BOTH"

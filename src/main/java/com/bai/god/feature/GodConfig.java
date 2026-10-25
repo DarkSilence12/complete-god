@@ -27,7 +27,7 @@ public class GodConfig {
 
     private static File configFile() {
         if (configFile == null) {
-            configFile = GodEnv.configFile("god_config.json");
+            configFile = GodEnv.configFile("wanzhengshen_config.json");
         }
         return configFile;
     }
@@ -97,7 +97,7 @@ public class GodConfig {
                 }
             }
         } catch (Exception e) {
-            God.LOGGER.error("读取 god_config.json 失败", e);
+            God.LOGGER.error("读取 wanzhengshen_config.json 失败", e);
         }
         if (data == null) {
             data = new ConfigData();
@@ -115,7 +115,7 @@ public class GodConfig {
                 GSON.toJson(data, writer);
             }
         } catch (Exception e) {
-            God.LOGGER.error("写入 god_config.json 失败", e);
+            God.LOGGER.error("写入 wanzhengshen_config.json 失败", e);
         }
     }
 

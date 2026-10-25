@@ -1,7 +1,9 @@
 package com.bai.god.util;
 
 import com.bai.god.God;
-import net.fabricmc.loader.api.FabricLoader;
+import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.loading.FMLEnvironment;
+import net.minecraftforge.fml.loading.FMLPaths;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,26 +11,28 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+/**
+ * 完整神 —— 环境工具（Forge 版，替代 FabricLoader）。
+ */
 public final class GodEnv {
 
     private GodEnv() {
     }
 
     public static Path configDir() {
-        return FabricLoader.getInstance().getConfigDir();
+        return FMLPaths.CONFIGDIR.get();
     }
 
     public static Path gameDir() {
-        return FabricLoader.getInstance().getGameDir();
+        return FMLPaths.GAMEDIR.get();
     }
 
     public static boolean isModLoaded(String modId) {
-        return FabricLoader.getInstance().isModLoaded(modId);
+        return ModList.get().isLoaded(modId);
     }
 
     public static boolean isClient() {
-        return FabricLoader.getInstance().getEnvironmentType()
-                == net.fabricmc.api.EnvType.CLIENT;
+        return FMLEnvironment.dist.isClient();
     }
 
     public static File configFile(String name) {

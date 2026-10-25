@@ -3,6 +3,7 @@
   "minVersion": "0.8.5",
   "package": "com.bai.god.mixin",
   "compatibilityLevel": "JAVA_17",
+  "refmap": "wanzhengshen.refmap.json",
   "mixins": [
     "GodPlayerLivingEntityMixin",
     "GodPlayerProtectionMixin",

@@ -1,0 +1,14 @@
+{
+  "category.wanzhengshen.config": "-1 Config",
+  "key.wanzhengshen.config_open": "Open -1 Config",
+
+  "itemGroup.wanzhengshen": "-1",
+
+  "wanzhengshen.config.title": "-1 Config",
+  "wanzhengshen.config.category.god": "God Config",
+  "wanzhengshen.config.category.ui": "UI Config",
+  "wanzhengshen.config.customize": "Customize UI",
+  "wanzhengshen.config.done": "Done",
+  "wanzhengshen.config.back": "<- Back",
+  "wanzhengshen.config.applyTitle": "Apply Title"
+}

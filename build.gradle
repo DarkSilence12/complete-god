@@ -1,71 +1,103 @@
 plugins {
-	id 'net.fabricmc.fabric-loom-remap' version "${loom_version}"
-	id 'maven-publish'
+    id 'eclipse'
+    id 'idea'
+    id 'net.minecraftforge.gradle' version '[6.0.16,6.2)'
+    id 'org.spongepowered.mixin' version '0.7-SNAPSHOT'
 }
+
+group = 'com.bai.god'
+version = '1.0.0'
 
 base {
-	archivesName = 'god'
-}
-
-repositories {
-	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-}
-
-loom {
-	// 单 sourceSet：客户端与服务端代码放在一起（移植自 Forge 的单模块工程），
-	// 客户端专属代码由入口点与 mixin 的 client 列表在运行时隔离。
-	mods {
-		"god" {
-			sourceSet sourceSets.main
-		}
-	}
-}
-
-dependencies {
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings loom.officialMojangMappings()
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
-}
-
-processResources {
-	def version = project.version
-	inputs.property "version", version
-
-	filesMatching("fabric.mod.json") {
-		expand "version": version
-	}
-}
-
-tasks.withType(JavaCompile).configureEach {
-	it.options.release = 17
-	it.options.encoding = "UTF-8"
+    // 产物 jar 命名：wanzhengshen-1.20.1-1.0.0.jar
+    archivesName = "wanzhengshen-${minecraft_version}"
 }
 
 java {
-	withSourcesJar()
+    toolchain.languageVersion = JavaLanguageVersion.of(17)
+}
 
-	sourceCompatibility = JavaVersion.VERSION_17
-	targetCompatibility = JavaVersion.VERSION_17
+minecraft {
+    mappings channel: mapping_channel, version: mapping_version
+
+    runs {
+        client {
+            workingDirectory file('D:/AI/AI下载/wanzhengshen-run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMc/output.json"
+            property 'forge.enabledGameTestNamespaces', "${mod_id}"
+            mods {
+                "${mod_id}" {
+                    source sourceSets.main
+                }
+            }
+        }
+        server {
+            workingDirectory file('D:/AI/AI下载/wanzhengshen-run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMc/output.json"
+            property 'forge.enabledGameTestNamespaces', "${mod_id}"
+            mods {
+                "${mod_id}" {
+                    source sourceSets.main
+                }
+            }
+        }
+        data {
+            workingDirectory file('D:/AI/AI下载/wanzhengshen-run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            args '--mod', "${mod_id}", '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            mods {
+                "${mod_id}" {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+// Mixin 配置：refmap 输出到 wanzhengshen.refmap.json
+mixin {
+    add sourceSets.main, "wanzhengshen.refmap.json"
+    config "wanzhengshen.mixins.json"
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+
+    // Mixin（Forge 运行时自带 mixin，这里提供编译期 + annotation processor）
+    compileOnly 'org.spongepowered:mixin:0.8.5'
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 
 jar {
-	def projectName = project.name
-	inputs.property "projectName", projectName
-
-	from("LICENSE") {
-		rename { "${it}_$projectName" }
-	}
+    manifest {
+        attributes([
+            "Specification-Title"     : "${mod_id}",
+            "Specification-Vendor"    : "${mod_authors}",
+            "Specification-Version"   : "1",
+            "Implementation-Title"    : project.name,
+            "Implementation-Version"  : project.jar.archiveVersion,
+            "Implementation-Vendor"   : "${mod_authors}",
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
 }
 
-publishing {
-	publications {
-		create("mavenJava", MavenPublication) {
-			from components.java
-		}
-	}
+jar.finalizedBy('reobfJar')
 
-	repositories {
-	}
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
 }

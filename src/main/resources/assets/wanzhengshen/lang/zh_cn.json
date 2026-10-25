@@ -1,0 +1,14 @@
+{
+  "category.wanzhengshen.config": "-1 配置",
+  "key.wanzhengshen.config_open": "打开 -1 配置",
+
+  "itemGroup.wanzhengshen": "-1",
+
+  "wanzhengshen.config.title": "-1 配置",
+  "wanzhengshen.config.category.god": "成神配置",
+  "wanzhengshen.config.category.ui": "界面配置",
+  "wanzhengshen.config.customize": "界面自定义",
+  "wanzhengshen.config.done": "完成",
+  "wanzhengshen.config.back": "← 返回",
+  "wanzhengshen.config.applyTitle": "应用标题"
+}

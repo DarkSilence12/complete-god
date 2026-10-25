@@ -88,6 +88,8 @@ public class GodModeSystem {
         }
         GOD_MODE_STATES.put(playerUuid, true);
 
+        persistGodState(player, playerUuid, true);
+
         GodPlayerSnapshotHelper.snapshotCriticalFields(player);
 
         player.displayClientMessage(
@@ -110,6 +112,7 @@ public class GodModeSystem {
 
     private static void GodModeSystemGodActivate(ServerPlayer player) {
         GOD_MODE_STATES.put(player.getUUID(), true);
+        persistGodState(player, player.getUUID(), true);
         GodPlayerSnapshotHelper.snapshotCriticalFields(player);
         syncGodStateToClient(player);
     }
@@ -121,6 +124,8 @@ public class GodModeSystem {
 
         UUID playerUuid = player.getUUID();
         GOD_MODE_STATES.put(playerUuid, false);
+
+        persistGodState(player, playerUuid, false);
 
         if (player.gameMode.getGameModeForPlayer() != GameType.CREATIVE) {
             player.getAbilities().invulnerable = false;
@@ -206,6 +211,18 @@ public class GodModeSystem {
         }
     }
 
+    private static void persistGodState(ServerPlayer player, UUID uuid, boolean isGod) {
+        if (player == null || uuid == null || player.server == null) {
+            return;
+        }
+        try {
+            GodStatePersistence persistence = GodStatePersistence.get(player.server);
+            persistence.setGod(uuid, isGod);
+        } catch (Throwable t) {
+            LOGGER.debug("持久化神级状态失败: {}", t.toString());
+        }
+    }
+
     public static void syncGodStateToClient(ServerPlayer player) {
         try {
             GodNetwork.sendGodState(player, isGodPlayer(player));
@@ -214,6 +231,17 @@ public class GodModeSystem {
     }
 
     public static void onPlayerJoin(ServerPlayer player) {
+        // 从 SavedData 恢复持久化的神级状态（重启不丢）
+        if (player != null && player.server != null) {
+            try {
+                GodStatePersistence persistence = GodStatePersistence.get(player.server);
+                if (persistence.isGod(player.getUUID())) {
+                    GOD_MODE_STATES.put(player.getUUID(), true);
+                }
+            } catch (Throwable t) {
+                LOGGER.debug("恢复神级状态失败: {}", t.toString());
+            }
+        }
         syncGodStateToClient(player);
     }
 
